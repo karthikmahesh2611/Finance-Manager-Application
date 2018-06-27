@@ -1,0 +1,44 @@
+CREATE TABLE Account_Code_Mapping(
+Account_Code INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+Account_Name VARCHAR(50), 
+Account_Num VARCHAR(30)
+);
+ALTER TABLE Account_Code_Mapping AUTO_INCREMENT = 2000;
+INSERT INTO Account_Code_Mapping (Account_Name, Account_Num) VALUE ('Cash','NA');
+
+CREATE TABLE Income_Sourcecode_mapping(
+Source_Code INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+Source_Name VARCHAR(50)
+);
+ALTER TABLE Income_Sourcecode_mapping AUTO_INCREMENT = 3000;
+INSERT INTO Income_Sourcecode_mapping(Source_Name) VALUE ('Internal Transfer/Cash Withdrawal');
+
+CREATE TABLE Transaction_Category_Code_Mapping(
+Transaction_Category_Code INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+Description VARCHAR(50)
+);
+ALTER TABLE Transaction_Category_Code_Mapping AUTO_INCREMENT = 1000;
+INSERT INTO Transaction_Category_Code_Mapping (Description) VALUE ('Internal Transfer/Cash Withdrawal');
+
+CREATE TABLE Daily_Expenditure(
+Transaction_id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY, 
+Transaction_date DATE, 
+Description VARCHAR(50), 
+Transaction_Category_Code INT(4) UNSIGNED, 
+Transaction_Account_Code INT(4) UNSIGNED, 
+Transaction_Amount DECIMAL(10,2), 
+FOREIGN KEY (Transaction_Category_Code) REFERENCES Transaction_Category_Code_Mapping(Transaction_Category_Code), 
+FOREIGN KEY (Transaction_Account_Code) REFERENCES Account_Code_Mapping(Account_Code)
+);
+
+
+CREATE TABLE Income_Records(
+Transaction_id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY, 
+Transaction_date DATE, 
+Income_Source_Code INT(4) UNSIGNED,  
+Account_code INT(4) UNSIGNED, 
+Description VARCHAR(50), 
+Amount DECIMAL(10,2), 
+FOREIGN KEY (Income_Source_Code) REFERENCES Income_Sourcecode_mapping(Source_Code),
+FOREIGN KEY (Account_code) REFERENCES Account_Code_Mapping(Account_Code)
+);
