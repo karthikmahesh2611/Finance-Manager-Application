@@ -1,21 +1,20 @@
 import pymysql as database
 import config
 
-
-
 class Account_Table:
-
-
 	
 	def __init__(self):
+		#initialize class variables
 		self.table_name = 'Account_Code_Mapping'
+		
+		#Dictionary to map column names to sequence of numbers
 		self.cln_map = {1:"Account_Code",2:"Account_Name",3:"Account_Num"}
 
 	def __str__(self):
 		output = 'Host Name: ' + config.db_host + '\n' + 'Database Name: ' + config.db_name + '\n' + 'Table Name: ' + self.table_name
 		return(output)
 
-
+	#method to add entry to the table
 	def add(self,acc_name,acc_num):
 		connection = database.connect(host=config.db_host, user=config.db_user, password=config.db_passwd, db=config.db_name)
 		mysql = connection.cursor()
@@ -24,6 +23,7 @@ class Account_Table:
 		connection.commit()
 		connection.close()
 
+	#method to query rows for a matching column value	
 	def search(self,col_num,value):
 		connection = database.connect(host=config.db_host, user=config.db_user, password=config.db_passwd, db=config.db_name)
 		mysql = connection.cursor()
@@ -33,6 +33,7 @@ class Account_Table:
 		connection.close()
 		return(result)
 
+	#method query all rows in a table and order them in descending based on the column value provided
 	def search_all(self,col_num=1):
 		connection = database.connect(host=config.db_host, user=config.db_user, password=config.db_passwd, db=config.db_name)
 		mysql = connection.cursor()
@@ -42,7 +43,7 @@ class Account_Table:
 		connection.close()
 		return(result)
 
-
+	#method query last n rows of a table
 	def search_lastn(self,limit,col_num=1):
 		connection = database.connect(host=config.db_host, user=config.db_user, password=config.db_passwd, db=config.db_name)
 		mysql = connection.cursor()
