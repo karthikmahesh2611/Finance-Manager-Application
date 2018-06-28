@@ -167,19 +167,24 @@ class Income_Table:
 		mysql.execute(sql1)
 		connection.commit()
 		connection.close()
-
+		
+	#Since this table can be really large we first fetch the results in batches of 100 and 
+	#than use python generators to yield one at a time
 	def search(self,col_num,value):
 		connection = database.connect(host=config.db_host, user=config.db_user, password=config.db_passwd, db=config.db_name)
 		mysql = connection.cursor()
 		sql1 = "SELECT * from " + self.table_name + " WHERE " + self.cln_map[col_num] + " = '" + str(value) + "';"
 		mysql.execute(sql1)
-		#Since this table can be really large we first fetch the results in batches of 100 and 
-		#than use python generators to yield one at a time
+				
+		#Once the query is executed we will use fetchmany() to fetch 1000 rows at time and loop it  
+		#in a while loop
 		while True:
 			results = mysql.fetchmany(100)
+			#if last row is reached and ‘results’ is empty break the loop
 			if not results:
 				connection.close()
 				break
+			#else yield the results one row at a time
 			for result in results:
 				yield result
 
