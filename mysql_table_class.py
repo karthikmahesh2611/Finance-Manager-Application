@@ -1,3 +1,6 @@
+#Author: Karthik Mahesh
+#Email: karthik224488@gmail.com
+
 import pymysql as database
 import config
 
