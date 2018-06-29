@@ -1,3 +1,6 @@
+#Author: Karthik Mahesh
+#Email: karthik224488@gmail.com
+
 from mysql_table_class import *
 import config
 import os
