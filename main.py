@@ -1,7 +1,7 @@
-if __name__ == "__main__":
-	from Function_module import *
-	import os
+from Function_module import *
+import os
 
+if __name__ == "__main__":
 
 	while True:
 
