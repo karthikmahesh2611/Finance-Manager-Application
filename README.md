@@ -14,4 +14,4 @@ The command line application interface is shown below:
 Currently the report generation section is immature and under build, however for now i directly query the database for pulling my reports which i am planning to integrate to the code itself. You can also use some third party reporting tools and connect it to the database to get beautiful graphs and charts.
 
 
-![expenditure_report](https://user-images.githubusercontent.com/39571363/42690814-5670ec04-86c3-11e8-9c25-07b4c3a5fc71.JPG)
+![expenditure_report](https://user-images.githubusercontent.com/39571363/42696832-fd56c094-86d6-11e8-8c82-7910ab0d4128.JPG)
